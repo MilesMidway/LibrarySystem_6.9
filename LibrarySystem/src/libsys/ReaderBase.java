@@ -83,6 +83,11 @@ public class ReaderBase extends main {
         jPanel1.add(cbGenre, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 80, 102, 32));
 
         cbAvail.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unavailable / Available", "" }));
+        cbAvail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAvailActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, 31));
 
         btnMember.setText("Become a member");
@@ -306,6 +311,10 @@ public class ReaderBase extends main {
             }
         }
     }//GEN-LAST:event_btnShowBorrowedActionPerformed
+
+    private void cbAvailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAvailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAvailActionPerformed
 
     public void allAddBook(String[] bookData) throws Exception 
     {

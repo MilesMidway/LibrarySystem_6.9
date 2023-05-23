@@ -351,7 +351,7 @@ public class BookBorrowMan extends main {
                         ChangeNumberOfCopies(BookTitle);
                         deleteAction();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookDue, localNow, 0.15, 50)+ "pesos.");                        
+                        JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookDue, localNow, 0.15, 50)+ " pesos.");                        
                     }
                 }
 
