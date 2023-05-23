@@ -167,7 +167,7 @@ public class AdminBase extends main {
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 336, 285, -1));
         getContentPane().add(txtUserID, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 382, 285, -1));
 
-        cbUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "READER", "LIBRARIAN", "ADMIN" }));
+        cbUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MEMBER", "GUEST", "LIBRARIAN", "ADMIN" }));
         getContentPane().add(cbUserType, new org.netbeans.lib.awtextra.AbsoluteConstraints(214, 428, 285, -1));
 
         btnSave.setText("Save");
@@ -264,6 +264,7 @@ public class AdminBase extends main {
                     refreshRsStmt("accounts");
 
                     JOptionPane.showMessageDialog(null, "Account has been Added!");
+                    btnAdd.setEnabled(false);
                     Default();
                     randNum();
                     Table();
@@ -350,14 +351,14 @@ public class AdminBase extends main {
 
     private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
         // TODO add your handling code here:
-        if (txtUsername.getText().length() < 5) {
-            // JOPTIONPANE
-            btnAdd.setEnabled(false);
-            btnSave.setEnabled(false);
-        } else {
+        if (txtUsername.getText().length() > 0 && txtPassword.getText().length() > 0) {
             // JOPTIONPANE
             btnAdd.setEnabled(true);
             btnSave.setEnabled(true);
+        } else {
+            // JOPTIONPANE
+            btnAdd.setEnabled(false);
+            btnSave.setEnabled(false);
         }
     }//GEN-LAST:event_txtUsernameKeyTyped
 
@@ -443,14 +444,14 @@ public class AdminBase extends main {
 
     private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
         // TODO add your handling code here:
-        if (txtPassword.getText().length() < 3) {
-            // JOPTIONPANE
-            btnAdd.setEnabled(false);
-            btnSave.setEnabled(false);
-        } else {
+        if (txtUsername.getText().length() > 0 && txtPassword.getText().length() > 0) {
             // JOPTIONPANE
             btnAdd.setEnabled(true);
             btnSave.setEnabled(true);
+        } else {
+            // JOPTIONPANE
+            btnAdd.setEnabled(false);
+            btnSave.setEnabled(false);
         }
     }//GEN-LAST:event_txtPasswordKeyTyped
 

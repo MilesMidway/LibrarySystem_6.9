@@ -337,23 +337,30 @@ public class BookBorrowMan extends main {
                 ResultSet updateRs = updateStmt.executeQuery("SELECT * FROM BOOKS WHERE BOOKID = " + borrBookID);
 
                 if (updateRs.next()) {
-                    Date localNow = Date.valueOf(LocalDate.now());
-                    Date bookDue = updateRs.getDate("DUEDATE");
-                    Date bookReturned = updateRs.getDate("RETURNEDDATE");
+                    LocalDate today = LocalDate.now();
+                    LocalDate due = today.plusDays(3);
+                    Date localNow = Date.valueOf(today);
+                    Date dueDate = Date.valueOf(due);
+
                     availability = updateRs.getString("AVAILABILITY");
 
                     if (availability.equals("BORROWING")) {
                         availability = "BORROWED";
                         updateRs.updateString("AVAILABILITY", availability);
                         updateRs.updateDate("BORROWEDDATE", localNow);
+                        updateRs.updateDate("DUEDATE", dueDate);
                         updateRs.updateRow();
-                    } else if (availability.equals("RETURNING") && !isOverDue(bookDue, bookReturned)) {
-                        BookTitle=updateRs.getString("TITLE");                        
-                        ChangeNumberOfCopies(BookTitle);
-                        deleteAction();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookReturned, bookDue, 0.15, 50)+ " pesos.");
-                        System.out.println(isOverDue(bookReturned, bookDue));
+                    } else if (availability.equals("RETURNING")) {
+                        Date bookDue = updateRs.getDate("DUEDATE");                    
+                        Date bookReturned = updateRs.getDate("RETURNEDDATE");
+                        if(!isOverDue(bookDue, bookReturned)){
+                            BookTitle=updateRs.getString("TITLE");                        
+                            ChangeNumberOfCopies(BookTitle);
+                            deleteAction();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookReturned, bookDue, 0.15, 50)+ " pesos.");
+                            System.out.println(isOverDue(bookReturned, bookDue));
+                        }
                     }
                 }
 
