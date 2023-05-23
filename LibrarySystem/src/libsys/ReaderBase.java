@@ -290,7 +290,8 @@ public class ReaderBase extends main {
 
                 Date localNow = Date.valueOf(LocalDate.now());
                 Date bookDue = rs.getDate("DUEDATE");
-                boolean isOverDue = isOverDue(bookDue, localNow);                              
+                boolean isOverDue = isOverDue(bookDue, localNow);      
+                
                     if(!isOverDue){
                     JOptionPane.showMessageDialog(null, "You are currently borrowing: " + title + "\nThe book is due: " + rs.getDate("DUEDATE") + n, "Book Details",
                                 JOptionPane.INFORMATION_MESSAGE);
