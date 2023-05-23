@@ -339,6 +339,7 @@ public class BookBorrowMan extends main {
                 if (updateRs.next()) {
                     Date localNow = Date.valueOf(LocalDate.now());
                     Date bookDue = updateRs.getDate("DUEDATE");
+                    Date bookReturned = updateRs.getDate("RETURNEDDATE");
                     availability = updateRs.getString("AVAILABILITY");
 
                     if (availability.equals("BORROWING")) {
@@ -346,12 +347,13 @@ public class BookBorrowMan extends main {
                         updateRs.updateString("AVAILABILITY", availability);
                         updateRs.updateDate("BORROWEDDATE", localNow);
                         updateRs.updateRow();
-                    } else if (availability.equals("RETURNING") && !isOverDue(bookDue, localNow)) {
-                        BookTitle=updateRs.getString("TITLE");
+                    } else if (availability.equals("RETURNING") && !isOverDue(bookDue, bookReturned)) {
+                        BookTitle=updateRs.getString("TITLE");                        
                         ChangeNumberOfCopies(BookTitle);
                         deleteAction();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookDue, localNow, 0.15, 50)+ " pesos.");                        
+                        JOptionPane.showMessageDialog(null, "Book Overdue. The book has not been returned for "+dateDiff(localNow, bookDue)+" days. Penalty is "+ penaltyCost(bookReturned, bookDue, 0.15, 50)+ " pesos.");
+                        System.out.println(isOverDue(bookReturned, bookDue));
                     }
                 }
 
